@@ -19,19 +19,17 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public DepartmentDto saveDepartment(DepartmentDto departmentDto) {
-        //Department department = modelMapper.map(departmentDto, Department.class);
-        Department department = DepartmentMapper.MAPPER.mapToDepartment(departmentDto);
-
+        Department department = modelMapper.map(departmentDto, Department.class);
+        //Department department = DepartmentMapper.MAPPER.mapToDepartment(departmentDto);
         Department savedDepartment = departmentRepository.save(department);
-        //return modelMapper.map(savedDepartment, DepartmentDto.class);
-
-        return DepartmentMapper.MAPPER.mapToDepartmentDto(savedDepartment);
+        return modelMapper.map(savedDepartment, DepartmentDto.class);
+        //return DepartmentMapper.MAPPER.mapToDepartmentDto(savedDepartment);
     }
 
     @Override
     public DepartmentDto getDepartmentByCode(String code) {
         Department department = departmentRepository.findByDepartmentCode(code);
-        if(department == null) {
+        if (department == null) {
             throw new ResourceNotFoundException("Department", "code", code);
         }
         return DepartmentMapper.MAPPER.mapToDepartmentDto(department);
