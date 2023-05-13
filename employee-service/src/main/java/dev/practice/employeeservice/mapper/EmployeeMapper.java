@@ -2,14 +2,30 @@ package dev.practice.employeeservice.mapper;
 
 import dev.practice.employeeservice.dto.EmployeeDto;
 import dev.practice.employeeservice.entity.Employee;
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
-@Mapper
-public interface EmployeeMapper {
-    EmployeeMapper MAPPER = Mappers.getMapper(EmployeeMapper.class);
+@Component
+public class EmployeeMapper {
 
-    EmployeeDto mapToEmployeeDto(Employee employee);
+    public static EmployeeDto mapToEmployeeDto(Employee employee) {
+        return new EmployeeDto(
+                employee.getId(),
+                employee.getFirstName(),
+                employee.getLastName(),
+                employee.getEmail(),
+                employee.getDepartmentCode(),
+                employee.getOrganisationCode()
+        );
+    }
 
-    Employee mapToEmployee(EmployeeDto employeeDto);
+    public static Employee mapToEmployee(EmployeeDto employeeDto) {
+        return new Employee(
+                employeeDto.getId(),
+                employeeDto.getFirstName(),
+                employeeDto.getLastName(),
+                employeeDto.getEmail(),
+                employeeDto.getDepartmentCode(),
+                employeeDto.getOrganisationCode()
+        );
+    }
 }
